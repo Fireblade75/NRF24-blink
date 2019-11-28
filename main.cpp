@@ -12,6 +12,7 @@
 
 #define TRANSFER_SIZE 1
 #define TRANSFER_DEVICE 1
+#define TRANSFER_ADDRESS 0x93d5ae141581338e
 
 Serial pc(USBTX, USBRX);
 
@@ -48,6 +49,7 @@ int main() {
     nrf24.setRfFrequency(2480);
     if(TRANSFER_DEVICE) {
         printf("Starting in transfer mode\r\n");
+        nrf24.setTxAddress( TRANSFER_ADDRESS );
         nrf24.setTransmitMode();
         nrf24.enable();
         
@@ -64,6 +66,7 @@ int main() {
     } else {
         printf("Starting in receiver mode\r\n");
         nrf24.setReceiveMode();
+        nrf24.setRxAddress( TRANSFER_ADDRESS );
         nrf24.enable();
         
         char data_arr[TRANSFER_SIZE]; 
